@@ -1,14 +1,11 @@
-import {
-  createEffect,
-  createMemo,
-  createSignal,
-  on,
-  type Accessor,
-  type Setter
-} from 'solid-js'
-import { type Character } from './store'
+/* eslint-disable @typescript-eslint/unbound-method */
+import type { Accessor, Setter } from 'solid-js'
 
-export function setEqual<T>(a: Set<T>, b: Set<T>): boolean {
+import { createEffect, createMemo, createSignal, on } from 'solid-js'
+
+import type { Character } from './store'
+
+export function setEqual<T> (a: Set<T>, b: Set<T>): boolean {
   if (a.size !== b.size) return false
   for (const item of a) {
     if (!b.has(item)) return false
@@ -16,7 +13,7 @@ export function setEqual<T>(a: Set<T>, b: Set<T>): boolean {
   return true
 }
 
-export function setSubtract<T>(a: Set<T>, b: Set<T>): Set<T> {
+export function setSubtract<T> (a: Set<T>, b: Set<T>): Set<T> {
   const result = new Set<T>()
   for (const item of a) {
     if (!b.has(item)) result.add(item)
@@ -24,7 +21,7 @@ export function setSubtract<T>(a: Set<T>, b: Set<T>): Set<T> {
   return result
 }
 
-export function setUnion<T>(a: Set<T>, b: Set<T>): Set<T> {
+export function setUnion<T> (a: Set<T>, b: Set<T>): Set<T> {
   const result = new Set<T>()
   for (const item of a) result.add(item)
   for (const item of b) result.add(item)
@@ -32,50 +29,48 @@ export function setUnion<T>(a: Set<T>, b: Set<T>): Set<T> {
 }
 
 export interface DialogWindow {
-  bottomBar: HTMLDivElement
-  dialog: HTMLDivElement
-  topBar: HTMLDivElement
-  inputArea: HTMLTextAreaElement
-  sendButton: HTMLButtonElement
-  inputContent: Accessor<string>
-  setInputContent: Setter<string>
-  openIDModal: () => Promise<IDModal>
-  setID: (id: string) => Promise<void>
+  bottomBar: HTMLDivElement;
+  dialog: HTMLDivElement;
+  topBar: HTMLDivElement;
+  inputArea: HTMLTextAreaElement;
+  sendButton: HTMLButtonElement;
+  inputContent: Accessor<string>;
+  setInputContent: Setter<string>;
+  openIDModal: () => Promise<IDModal>;
+  setID: (id: string) => Promise<void>;
 }
 
 interface IDModal {
-  closeButton: HTMLButtonElement
-  idInput: HTMLInputElement
-  submitButton: HTMLButtonElement
+  closeButton: HTMLButtonElement;
+  idInput: HTMLInputElement;
+  submitButton: HTMLButtonElement;
 }
 
-function simulateNativeInput(
+function simulateNativeInput (
   el: HTMLInputElement | HTMLTextAreaElement,
   value: string
 ): void {
   const nativeInputValueSetter =
     el instanceof HTMLInputElement
-      ? // eslint-disable-next-line @typescript-eslint/unbound-method
-        Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!
-          .set!
-      : // eslint-disable-next-line @typescript-eslint/unbound-method
-        Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')!
-          .set!
+      ? Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!
+        .set!
+      : Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')!
+        .set!
   nativeInputValueSetter.call(el, value)
   el.dispatchEvent(new Event('input', { bubbles: true }))
 }
 
 const [inputContent, setInputContent] = createSignal<string>('')
 
-export function useDialogWindow(
+export function useDialogWindow (
   appRoot: Accessor<HTMLDivElement | undefined>
 ): () => DialogWindow | undefined {
   const memo = createMemo(() => {
     const root = appRoot()
-    if (root == null || !root.isConnected) {
+    if (!(root?.isConnected ?? false)) {
       return undefined
     }
-    const bottomBar = root.parentElement!.parentElement! as HTMLDivElement
+    const bottomBar = root!.parentElement!.parentElement! as HTMLDivElement
     const dialog = bottomBar.previousElementSibling! as HTMLDivElement
     const topBar = dialog.previousElementSibling! as HTMLDivElement
     const inputArea =
@@ -138,7 +133,7 @@ export function useDialogWindow(
   return memo
 }
 
-export function formatImportString(importString: string): Partial<Character> {
+export function formatImportString (importString: string): Partial<Character> {
   const namePattern = /(?<=\.st )(?:([\p{Script=Han}|\w]+?)(?:[- ]|？))?(.+)/gu
   const nameMatch = namePattern.exec(importString)
   if (nameMatch == null) {

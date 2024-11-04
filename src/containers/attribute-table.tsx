@@ -1,9 +1,11 @@
-import { For, type Component } from 'solid-js'
+import type { Component } from 'solid-js'
+
+import { For } from 'solid-js'
 
 // TODO: 编辑
 
 interface AttributeTableProps {
-  attributes: Record<string, number>
+  attributes: Record<string, number>;
 }
 
 const AttributeTable: Component<AttributeTableProps> = (props) => {

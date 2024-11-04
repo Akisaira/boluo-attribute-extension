@@ -1,8 +1,13 @@
+import type { Component } from 'solid-js'
+
+import { For, createSignal } from 'solid-js'
+
 import { useCharacterStore } from '@/store'
-import { For, createSignal, type Component } from 'solid-js'
-import Button from '../components/button'
-import AddCharacterModal from './add-character-modal'
 import { useGlobalContext } from '@/contexts/global-context'
+
+import Button from '../components/button'
+
+import AddCharacterModal from './add-character-modal'
 
 const CharacterTable: Component = () => {
   const { characterList, setCharacterList, setActiveCharacter } =
@@ -24,12 +29,12 @@ const CharacterTable: Component = () => {
           {(item) => (
             <tr>
               <AddCharacterModal
+                initAttributes={item.attributes}
+                initName={item.name}
                 shown={editShown()}
                 onClose={() => {
                   setEditShown(false)
                 }}
-                initName={item.name}
-                initAttributes={item.attributes}
               />
               <td>{item.name}</td>
               <td>{item.active ? '是' : '否'}</td>

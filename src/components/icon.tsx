@@ -1,14 +1,14 @@
-import { type Component, type JSXElement } from 'solid-js'
+import type { Component, JSXElement } from 'solid-js'
 
 interface IconProps {
-  children: JSXElement
-  size?: number
+  children: JSXElement;
+  size?: number;
 }
 
 const Icon: Component<IconProps> = (props) => {
   return (
     <i
-      class={`block text-[--bae-icon-size] size-[--bae-icon-size]`}
+      class="block text-[--bae-icon-size] size-[--bae-icon-size]"
       style={{
         '--bae-icon-size': `${props.size ?? 18}px`
       }}

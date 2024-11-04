@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'url'
+
 import { defineConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
 import solidSvg from 'vite-plugin-solid-svg'
 import monkey from 'vite-plugin-monkey'
-import { fileURLToPath } from 'url'
 
 export default defineConfig({
   plugins: [

@@ -1,15 +1,17 @@
-import CharacterTable from './character-table'
+import type { Component } from 'solid-js'
+
 import Modal from '@/components/modal'
-import { type Component } from 'solid-js'
+
+import CharacterTable from './character-table'
 
 interface CharacterListModalProps {
-  shown: boolean
-  onClose: () => void
+  shown: boolean;
+  onClose: () => void;
 }
 
 const CharacterListModal: Component<CharacterListModalProps> = (props) => {
   return (
-    <Modal shown={props.shown} onClose={props.onClose} title="身份列表">
+    <Modal shown={props.shown} title="身份列表" onClose={props.onClose}>
       <CharacterTable />
     </Modal>
   )

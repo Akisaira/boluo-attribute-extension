@@ -1,24 +1,28 @@
+import type { Component } from 'solid-js'
+
+import { createEffect, on, Show } from 'solid-js'
+import { createStore } from 'solid-js/store'
+
 import Button from '@/components/button'
 import Input from '@/components/input'
 import Modal from '@/components/modal'
 import { useCharacterStore } from '@/store'
 import { formatImportString } from '@/utils'
-import { createEffect, on, type Component, Show } from 'solid-js'
-import { createStore } from 'solid-js/store'
-import AttributeTable from './attribute-table'
 import { useGlobalContext } from '@/contexts/global-context'
 
+import AttributeTable from './attribute-table'
+
 interface AddCharacterModalProps {
-  shown: boolean
-  onClose: () => void
-  initName?: string
-  initAttributes?: Record<string, number>
+  shown: boolean;
+  onClose: () => void;
+  initName?: string;
+  initAttributes?: Record<string, number>;
 }
 
 interface NewCharacter {
-  name: string
-  importString: string
-  attributes: Record<string, number>
+  name: string;
+  importString: string;
+  attributes: Record<string, number>;
 }
 
 const AddCharacterModal: Component<AddCharacterModalProps> = (props) => {
@@ -52,7 +56,7 @@ const AddCharacterModal: Component<AddCharacterModalProps> = (props) => {
   )
 
   return (
-    <Modal shown={props.shown} onClose={props.onClose} title="添加身份">
+    <Modal shown={props.shown} title="添加身份" onClose={props.onClose}>
       <form
         onSubmit={(e) => {
           e.preventDefault()

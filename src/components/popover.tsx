@@ -1,8 +1,8 @@
-import { type Component, type JSXElement } from 'solid-js'
+import type { Component, JSXElement } from 'solid-js'
 
 interface PopoverProps {
-  content: JSXElement
-  children: JSXElement
+  content: JSXElement;
+  children: JSXElement;
 }
 
 const Popover: Component<PopoverProps> = (props) => {

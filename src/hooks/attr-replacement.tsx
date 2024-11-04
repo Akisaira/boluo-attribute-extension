@@ -1,8 +1,8 @@
 export interface ReplacementSuggestion {
-  start: number
-  end: number
-  original: string
-  replacement: string
+  start: number;
+  end: number;
+  original: string;
+  replacement: string;
 }
 
 export const getReplacementSuggestions = (
@@ -19,8 +19,8 @@ export const getReplacementSuggestions = (
     const original = item[0]
     const replacement = attributes[original].toString()
     suggestions.push({
-      start: item.index!,
-      end: item.index! + original.length,
+      start: item.index,
+      end: item.index + original.length,
       original,
       replacement
     })

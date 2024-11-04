@@ -1,4 +1,7 @@
-import { createSignal, onMount, type Component } from 'solid-js'
+import type { Component } from 'solid-js'
+
+import { createSignal, onMount } from 'solid-js'
+
 import Icon from './components/icon'
 import Popover from './components/popover'
 import Switch from './components/switch'
@@ -54,10 +57,10 @@ const App: Component = () => {
           <div class="mr-2">
             <Popover content="自动属性值替换">
               <Switch
+                value={autoReplacement()}
                 onClick={() => {
                   setAutoReplacement((v) => !v)
                 }}
-                value={autoReplacement()}
               >
                 <Icon>
                   <Replace />

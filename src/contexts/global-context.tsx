@@ -1,14 +1,11 @@
-import { type DialogWindow } from '@/utils'
-import {
-  type Component,
-  type JSXElement,
-  createContext,
-  useContext,
-  type Accessor
-} from 'solid-js'
+import type { Component, JSXElement, Accessor } from 'solid-js'
+
+import { createContext, useContext } from 'solid-js'
+
+import type { DialogWindow } from '@/utils'
 
 interface GlobalContextValues {
-  dialog: Accessor<DialogWindow | undefined>
+  dialog: Accessor<DialogWindow | undefined>;
 }
 
 const GlobalContext = createContext<GlobalContextValues>({
@@ -16,13 +13,12 @@ const GlobalContext = createContext<GlobalContextValues>({
 })
 
 interface GlobalProviderProps {
-  children: JSXElement
-  value: GlobalContextValues
+  children: JSXElement;
+  value: GlobalContextValues;
 }
 
 export const GlobalProvider: Component<GlobalProviderProps> = (props) => {
   return <GlobalContext.Provider {...props} />
 }
 
-export const useGlobalContext = (): GlobalContextValues =>
-  useContext(GlobalContext)
+export const useGlobalContext = (): GlobalContextValues => useContext(GlobalContext)

@@ -1,14 +1,18 @@
-import { CloseCross } from '@/icon-set'
-import { type JSXElement, type Component, Show } from 'solid-js'
+import type { JSXElement, Component } from 'solid-js'
+
+import { Show } from 'solid-js'
 import { Portal } from 'solid-js/web'
-import Button from './button'
+
+import { CloseCross } from '@/icon-set'
 import { useModalZIndex } from '@/store'
 
+import Button from './button'
+
 interface ModalProps {
-  title: string
-  shown: boolean
-  onClose: () => void
-  children: JSXElement
+  title: string;
+  shown: boolean;
+  onClose: () => void;
+  children: JSXElement;
 }
 
 const Modal: Component<ModalProps> = (props) => {
@@ -33,7 +37,7 @@ const Modal: Component<ModalProps> = (props) => {
           >
             <div class="flex w-full py-3 px-4 round">
               <div class="text-[#a0aec0] text-xl flex-1">{props.title}</div>
-              <Button icon={<CloseCross />} onClick={props.onClose} round />
+              <Button round icon={<CloseCross />} onClick={props.onClose} />
             </div>
             <div class="p-4">{props.children}</div>
           </div>

@@ -1,3 +1,7 @@
+import type { Component } from 'solid-js'
+
+import { For, createEffect, on, createMemo } from 'solid-js'
+
 import Suggestion from '@/components/suggestion'
 import { useGlobalContext } from '@/contexts/global-context'
 import {
@@ -5,22 +9,19 @@ import {
   replaceAttribute
 } from '@/hooks/attr-replacement'
 import { useCharacterStore } from '@/store'
-import { For, createEffect, on, type Component, createMemo } from 'solid-js'
 
 interface SuggestionListProps {
-  autoReplacement: boolean
+  autoReplacement: boolean;
 }
 
 const SuggestionList: Component<SuggestionListProps> = (props) => {
   const { activeCharacter } = useCharacterStore()
   const { dialog } = useGlobalContext()
 
-  const suggestions = createMemo(() =>
-    getReplacementSuggestions(
-      dialog()?.inputContent() ?? '',
-      activeCharacter()?.attributes ?? {}
-    )
-  )
+  const suggestions = createMemo(() => getReplacementSuggestions(
+    dialog()?.inputContent() ?? '',
+    activeCharacter()?.attributes ?? {}
+  ))
 
   createEffect(
     on(
@@ -33,9 +34,7 @@ const SuggestionList: Component<SuggestionListProps> = (props) => {
         if (auto) {
           const suggestion = suggestions[0]
           if (suggestion != null) {
-            dialog?.setInputContent((prev) =>
-              replaceAttribute(prev, suggestion)
-            )
+            dialog?.setInputContent((prev) => replaceAttribute(prev, suggestion))
           }
         }
       }

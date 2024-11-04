@@ -1,15 +1,13 @@
+import type { Accessor } from 'solid-js'
+
+import { createResource, createMemo, createSignal } from 'solid-js'
+
 import { GM, GM_addValueChangeListener } from '$'
-import {
-  createResource,
-  type Accessor,
-  createMemo,
-  createSignal
-} from 'solid-js'
 
 export interface Character {
-  name: string
-  attributes: Record<string, number>
-  active: boolean
+  name: string;
+  attributes: Record<string, number>;
+  active: boolean;
 }
 
 type CLSetterArg =
@@ -17,12 +15,12 @@ type CLSetterArg =
   | ((prev: Character[] | undefined) => Character[])
 
 interface CharacterStore {
-  characterList: Accessor<Character[] | undefined>
-  setCharacterList: (value: CLSetterArg) => Character[]
-  activeCharacter: () => Character | undefined
-  setActiveCharacter: (name: string) => void
-  addCharacter: (newCharacter: Character) => void
-  deleteCharacter: (name: string) => void
+  characterList: Accessor<Character[] | undefined>;
+  setCharacterList: (value: CLSetterArg) => Character[];
+  activeCharacter: () => Character | undefined;
+  setActiveCharacter: (name: string) => void;
+  addCharacter: (newCharacter: Character) => void;
+  deleteCharacter: (name: string) => void;
 }
 
 const [characterList, { mutate: mutateCharacterList }] = createResource<
@@ -41,10 +39,8 @@ GM_addValueChangeListener<Character[]>(
   }
 )
 
-export function useCharacterStore(): CharacterStore {
-  const activeCharacter = createMemo((): Character | undefined =>
-    characterList()?.find((c) => c.active)
-  )
+export function useCharacterStore (): CharacterStore {
+  const activeCharacter = createMemo((): Character | undefined => characterList()?.find((c) => c.active))
   const setActiveCharacter = (name: string): void => {
     characterList() != null &&
       setCharacterList((prev) => {
@@ -80,6 +76,6 @@ export function useCharacterStore(): CharacterStore {
 
 // eslint-disable-next-line solid/reactivity
 const [, setModalZIndex] = createSignal<number>(3777)
-export function useModalZIndex(): number {
+export function useModalZIndex (): number {
   return setModalZIndex((prev) => prev + 1)
 }

@@ -1,12 +1,13 @@
 /* @refresh reload */
 import { render } from 'solid-js/web'
+
 import App from './App'
 import { setEqual, setSubtract } from './utils'
 import './index.css'
 
 let mountPoints = new Set<HTMLDivElement>()
 
-function renderApp(mountPoint: HTMLDivElement): void {
+function renderApp (mountPoint: HTMLDivElement): void {
   mountPoint.style.rowGap = '5px'
   mountPoint.style.columnGap = '5px'
 
