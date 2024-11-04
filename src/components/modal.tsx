@@ -30,7 +30,7 @@ const Modal: Component<ModalProps> = (props) => {
           }}
         >
           <div
-            class="flex flex-col max-h-[80vh] slim-webkit-scroll md:min-w-96 rounded-md bg-[#232b3a] text-white shadow-[0_0_0_8px_#64646466]"
+            class="flex flex-col max-h-[80vh] slim-webkit-scroll md:min-w-96 rounded-md bg-[#232b3a] text-white shadow-[0_0_0_8px_#64646466] overflow-visible"
             onClick={(e) => {
               e.stopPropagation()
             }}

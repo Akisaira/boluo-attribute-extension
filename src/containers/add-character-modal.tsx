@@ -9,6 +9,7 @@ import Modal from '@/components/modal'
 import { useCharacterStore } from '@/store'
 import { formatImportString } from '@/utils'
 import { useGlobalContext } from '@/contexts/global-context'
+import Popover from '@/components/popover'
 
 import AttributeTable from './attribute-table'
 
@@ -83,7 +84,26 @@ const AddCharacterModal: Component<AddCharacterModalProps> = (props) => {
           />
         </div>
         <div class="mb-4">
-          <label class="block py-2">导入字符串</label>
+          <Popover
+            content={(
+              <div>
+                <p>支持如下格式：</p>
+                <p>
+                  <span>.st &lt;</span>
+                  <i>角色名</i>
+                  <span>&gt; &lt;</span>
+                  <i>技能名</i>
+                  <span>&gt;&lt;</span>
+                  <i>数值</i>
+                  <span>&gt;</span>
+                </p>
+                <p>例如：</p>
+                <p>.st 雄狮雷文 力量100智力0STR100INT0</p>
+              </div>
+            )}
+          >
+            <label class="block py-2">导入字符串</label>
+          </Popover>
           <Input
             placeholder="请将骰娘导入字符串粘贴到这里"
             value={newCharacter.importString}
