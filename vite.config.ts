@@ -22,7 +22,7 @@ export default defineConfig({
         homepageURL: 'https://github.com/AutumnSaury/boluo-attribute-extension',
         icon: 'https://www.google.com/s2/favicons?sz=64&domain=boluo.chat',
         namespace: 'https://boluo.chat',
-        match: ['https://boluo.chat/chat/*']
+        match: ['https://old.boluo.chat/chat/*']
       }
     })
   ],
