@@ -11,9 +11,6 @@ importers:
       solid-js:
         specifier: ^1.9.3
         version: 1.9.3
-      textarea-caret:
-        specifier: ^3.1.0
-        version: 3.1.0
     devDependencies:
       '@akisaira/eslint-config':
         specifier: 0.0.1-alpha.3
@@ -1777,9 +1774,6 @@ packages:
 
   text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
-
-  textarea-caret@3.1.0:
-    resolution: {integrity: sha512-cXAvzO9pP5CGa6NKx0WYHl+8CHKZs8byMkt3PCJBCmq2a34YA9pO1NrQET5pzeqnBjBdToF5No4rrmkDUgQC2Q==}
 
   thenify-all@1.6.0:
     resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
@@ -3675,8 +3669,6 @@ snapshots:
   tapable@2.2.1: {}
 
   text-table@0.2.0: {}
-
-  textarea-caret@3.1.0: {}
 
   thenify-all@1.6.0:
     dependencies:

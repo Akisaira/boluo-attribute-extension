@@ -1,32 +1,15 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import type { Accessor, Setter } from 'solid-js'
 
-import { createEffect, createMemo, createSignal, on } from 'solid-js'
+import {
+  createEffect,
+  createMemo,
+  createSignal,
+  on,
+  onCleanup
+} from 'solid-js'
 
 import type { Character } from './store'
-
-export function setEqual<T> (a: Set<T>, b: Set<T>): boolean {
-  if (a.size !== b.size) return false
-  for (const item of a) {
-    if (!b.has(item)) return false
-  }
-  return true
-}
-
-export function setSubtract<T> (a: Set<T>, b: Set<T>): Set<T> {
-  const result = new Set<T>()
-  for (const item of a) {
-    if (!b.has(item)) result.add(item)
-  }
-  return result
-}
-
-export function setUnion<T> (a: Set<T>, b: Set<T>): Set<T> {
-  const result = new Set<T>()
-  for (const item of a) result.add(item)
-  for (const item of b) result.add(item)
-  return result
-}
 
 export interface DialogWindow {
   bottomBar: HTMLDivElement;
@@ -57,7 +40,9 @@ function simulateNativeInput (
       : Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')!
         .set!
   nativeInputValueSetter.call(el, value)
-  el.dispatchEvent(new Event('input', { bubbles: true }))
+  el.dispatchEvent(
+    new CustomEvent('input', { bubbles: true, detail: { simulated: true } })
+  )
 }
 
 const [inputContent, setInputContent] = createSignal<string>('')
@@ -67,10 +52,11 @@ export function useDialogWindow (
 ): () => DialogWindow | undefined {
   const memo = createMemo(() => {
     const root = appRoot()
-    if (!(root?.isConnected ?? false)) {
-      return undefined
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!root?.isConnected) {
+      return
     }
-    const bottomBar = root!.parentElement!.parentElement! as HTMLDivElement
+    const bottomBar = root.parentElement!.parentElement! as HTMLDivElement
     const dialog = bottomBar.previousElementSibling! as HTMLDivElement
     const topBar = dialog.previousElementSibling! as HTMLDivElement
     const inputArea =
@@ -108,15 +94,28 @@ export function useDialogWindow (
       submitButton.click()
     }
 
-    inputArea.addEventListener('input', (e) => {
+    const handleInput = (e: Event): void => {
+      if (!(e instanceof InputEvent)) {
+        return
+      }
       setInputContent((e.target as HTMLTextAreaElement).value)
-    })
+    }
+
+    inputArea.addEventListener('input', handleInput)
 
     createEffect(
-      on(inputContent, (v) => {
-        simulateNativeInput(inputArea, v)
-      })
+      on(
+        inputContent,
+        (v) => {
+          simulateNativeInput(inputArea, v)
+        },
+        { defer: true }
+      )
     )
+
+    onCleanup(() => {
+      inputArea.removeEventListener('input', handleInput)
+    })
 
     return {
       bottomBar,
